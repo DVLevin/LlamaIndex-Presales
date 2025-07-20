@@ -274,6 +274,42 @@ HUBSPOT_API_KEY=your_hubspot_api_key
 TAVILY_API_KEY=your_tavily_api_key
 ```
 
+## Epic Completion Requirements
+
+### Mandatory Epic Visualization
+**After completing each Epic**, you MUST create a comprehensive visualization document following this pattern:
+
+1. **File Naming**: `EPIC_X_COMPLETION.md` (where X is the epic number)
+2. **Content Requirements**:
+   - Epic objectives and achievements summary
+   - System architecture diagrams using Mermaid
+   - Implementation details with component status
+   - Test coverage and results
+   - Technical stack and dependencies
+   - File structure created
+   - Integration points established
+   - Success metrics and next steps
+
+3. **Mermaid Diagram Types to Include**:
+   - **Component Architecture**: Show all implemented components and their relationships
+   - **Database Schema**: ER diagrams with implementation status
+   - **Sequence Diagrams**: API flows and communication patterns  
+   - **Pie Charts**: Test coverage, completion metrics
+   - **Dependency Graphs**: Technical stack and integrations
+
+4. **Status Indicators**: Use ✅ for completed, 🔄 for in-progress, 📋 for planned
+5. **Traceability**: Link back to original requirements and forward to next epic
+6. **Documentation**: Store in project root and reference in README.md
+
+**Example Epic completion visualization**: See `EPIC_1_COMPLETION.md` for the complete template.
+
+This ensures:
+- Complete traceability of development progress
+- Visual documentation for stakeholders
+- Knowledge transfer for future sessions
+- Architecture decision recording
+- Success metric tracking
+
 ## Common Development Patterns
 
 ### Adding New Agents
