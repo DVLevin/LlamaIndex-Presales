@@ -1,7 +1,17 @@
 # CLAUDE.md - Project Context for Future Sessions
 
-## Project Overview
-**LlamaIndex Presales AI System** - A comprehensive multi-agent AI platform for automating presales workflows using LlamaIndex framework with real-time streaming and CRM integrations.
+## Project Overview  
+**LlamaIndex Pre-sales Multi-Agent Pipeline** - An intelligent transcript processing system that transforms customer conversations into comprehensive proposal packages, reducing proposal cycle-time by 30%.
+
+### 🎯 **Business Vision**
+Transform raw customer transcripts through a specialized 10-step agent pipeline to generate:
+- Structured problem analysis
+- Solution process documentation  
+- Visual process diagrams (Mermaid)
+- Investment proposals with roadmaps
+- Customer-facing sales decks
+
+**Primary Goal**: **30% reduction in proposal cycle-time**
 
 ## What We've Built
 This is a complete project skeleton with detailed task briefs for each component. The system uses LlamaIndex's multi-agent patterns to create specialized AI agents that collaborate on presales tasks.
@@ -36,67 +46,87 @@ LlamaIndex-Presales/
 ## Technical Architecture
 
 ### Core Technologies
-- **AI Framework**: LlamaIndex 0.10+ with AgentWorkflow, Orchestrator, or Custom Planner patterns
-- **Backend**: FastAPI with async/await, WebSocket streaming, Celery task queue
-- **Frontend**: Modern React/Vue with real-time components, WebSocket client
-- **Database**: PostgreSQL 15+ with JSONB for agent state, Redis for caching
-- **Deployment**: Docker Compose for dev, Kubernetes for production
+- **AI Framework**: LlamaIndex 0.10+ with AgentWorkflow for linear pipeline orchestration
+- **Frontend**: Streamlit for rapid ML/AI application development
+- **LLM Provider**: OpenRouter for flexible model selection without cost escalation
+- **RAG System**: Vector embeddings + Jina reranker for company knowledge base
+- **Document Output**: Markdown files + Mermaid diagram generation
+- **Deployment**: Local development → Cloud deployment for production
 
-### Agent Workflow Design
+### Agent Pipeline Design (10-Step Workflow)
 ```
-Research Agent → Qualification Agent → Proposal Agent → Review Agent
-      ↓                ↓                    ↓              ↓
-   Research         Lead Score          Proposal       Quality
-    Notes           & Status            Content        Assurance
-      ↓                ↓                    ↓              ↓
-                    Follow-up Agent (if needed)
-                           ↓
-                  Database State Persistence
+Customer Transcript
+         ↓
+1. Conversa (Transcript Analysis) → Structured Requirements
+         ↓
+2. Conny (Consultant) → Project Description  
+         ↓
+3. Conversa (Refinement) → Enhanced Summary v2
+         ↓  
+4. Conny (Zero-Knowledge Brief) → PM Handover Document
+         ↓
+5. ProDy (Product Manager) → 5 Document Artifacts:
+   • Problem Overview (.md)
+   • Process Overview (.md) 
+   • Process Visualization (.md + Mermaid)
+   • Investment Proposal (.md)
+   • Next Steps (.md)
+         ↓
+6. Conny (Quality Review) → Approval/Feedback Loop
+         ↓
+7. System Package → Project Folder Creation
+         ↓
+8. RAG Knowledge Base (Always Available) → Past Solutions Integration
+         ↓
+9. Marketing Agent → Customer Sales Deck (.md)
+         ↓
+10. Streamlit UI → Document Download & Review
 ```
 
-### Integration Points
-- **CRM Systems**: Salesforce, HubSpot, Microsoft Dynamics
-- **Research APIs**: Web search (Tavily), company databases, social media
-- **Communication**: Email automation, calendar scheduling
-- **Document Generation**: Proposal templates, contract automation
+### Integration Points  
+- **OpenRouter**: Multi-LLM access (GPT-4o, Claude-3.5-Sonnet, Llama-3.1-405B)
+- **Knowledge Base**: Company proposals, projects, solutions (MD/PDF/PPT ingestion)
+- **Document Processing**: Transcript parsing (TXT, DOCX, PDF input)
+- **Output Generation**: Markdown documents, Mermaid diagrams, ZIP packages
+- **Optional**: CRM integration for customer data, external hybrid databases
 
 ## Development Commands
 
-### Common Commands for Each Component
+### Common Commands for Development
 ```bash
-# Backend development
-cd be/
-pip install -r requirements.txt
-uvicorn main:app --reload --port 8000
+# Main Streamlit Application
+pip install streamlit llama-index llama-index-llms-openrouter
+streamlit run streamlit_app/main.py
 
-# Frontend development  
-cd fe/
-npm install
-npm run dev
+# Knowledge Base Setup  
+python scripts/ingest_knowledge_base.py --folder ./knowledge_base
 
-# Database setup
-cd db/
-# Run migration scripts (to be implemented)
+# Pipeline Testing
+python scripts/test_pipeline.py --transcript sample_transcript.txt
 
-# Full stack with Docker
-docker-compose up -d
+# Document Generation
+python scripts/generate_proposal.py --project "Acme Corp Digital Transform"
 ```
 
 ### Testing Commands
 ```bash
-# Backend tests
-cd be/ && pytest tests/
+# Pipeline Integration Tests
+pytest tests/test_pipeline.py
 
-# Frontend tests
-cd fe/ && npm run test
+# Agent Unit Tests  
+pytest tests/test_agents.py
 
-# Acceptance tests (manual verification)
-cd fe/ && npm run test:acceptance
-cd be/ && pytest tests/acceptance/
-cd ai/ && python -m pytest tests/acceptance/
+# RAG System Tests
+pytest tests/test_rag_system.py
 
-# Integration tests
-docker-compose -f docker-compose.test.yml up --abort-on-container-exit
+# Document Generation Tests
+pytest tests/test_document_generation.py
+
+# Acceptance Tests (BDD/ATDD)
+pytest tests/acceptance/ --verbose
+
+# Streamlit App Tests
+pytest tests/test_streamlit_app.py
 ```
 
 ## Acceptance Testing Strategy (BDD/ATDD)
@@ -132,19 +162,21 @@ component_folder/
 
 ### Example Acceptance Test
 ```gherkin
-Feature: Real-time Chat Interface
+Feature: Transcript to Proposal Pipeline
   As a sales representative
-  I want to see AI agent responses in real-time
-  So that I can monitor the presales process actively
+  I want to transform customer transcripts into complete proposals
+  So that I can reduce proposal cycle-time by 30%
 
-  Scenario: Agent message streaming
-    Given I am connected to the chat interface
-    And the WebSocket connection is established
-    When I send a message "Research Acme Corp"
-    Then I should see "Research Agent is working..." immediately
-    And I should see research results streaming in real-time
-    And the final message should contain company information
-    And the agent status should show "Research Complete"
+  Scenario: Complete pipeline execution
+    Given I have uploaded a customer discovery call transcript
+    And I have selected "gpt-4o" as the LLM model
+    When I execute the pipeline
+    Then Conversa should analyze the transcript and extract requirements
+    And Conny should create a project description based on requirements
+    And ProDy should generate 5 document artifacts
+    And the Marketing Agent should create a customer sales deck
+    And I should be able to download all documents as a ZIP package
+    And the total processing time should be less than 5 minutes
 ```
 
 ### Acceptance Testing Workflow
@@ -158,43 +190,45 @@ Feature: Real-time Chat Interface
 
 ## Current Implementation Status
 
-### ✅ Phase 1: Frontend (COMPLETED)
-**Frontend** (`fe/` folder): **🎉 PRODUCTION READY**
-- ✅ Complete React + TypeScript + Vite setup with Tailwind CSS
-- ✅ WebSocket client with auto-reconnection and connection management  
-- ✅ Real-time chat interface with message rendering
-- ✅ Agent status dashboard with visual indicators
-- ✅ Navigation system between Chat and Agents tabs
+### ✅ Phase 1: React Admin Interface (COMPLETED - BONUS)
+**Admin Interface** (`fe/` folder): **🎉 PRODUCTION READY**
+- ✅ React + TypeScript interface for monitoring pipeline execution
+- ✅ Real-time WebSocket dashboard for agent status tracking
+- ✅ Document preview and management interface  
+- ✅ Could serve as admin panel for reviewing generated proposals
 - ✅ Comprehensive BDD/ATDD acceptance tests
-- ✅ Responsive design and accessibility features
-- ✅ TypeScript type system for all components
 - ✅ Development server running on http://localhost:5173
 
-### 🔄 Phase 2: Backend Implementation (NEXT PRIORITY)
-**Backend** (`be/` folder): Ready for development
-- 📋 FastAPI + WebSocket infrastructure (see DEVELOPMENT_PLAN.md)
-- 📋 LlamaIndex AgentWorkflow integration
-- 📋 Multi-agent orchestration with streaming events
-- 📋 Database state persistence
+> **Note**: This React interface was built before understanding the true vision. It can serve as a valuable admin/monitoring dashboard, but the **main application should be Streamlit-based**.
 
-### 📋 Phase 3: AI Agents Development 
-**AI Agents** (`ai/` folder): Specification complete
-- 📋 Implement FunctionAgent classes using LlamaIndex patterns
-- 📋 Create AgentWorkflow with Research → Qualification → Proposal → Review flow
-- 📋 Add streaming event handling for real-time frontend updates  
-- 📋 Integrate with custom tools from `tools/` folder
+### 🔄 Phase 2: Streamlit Pipeline Application (NEXT PRIORITY)
+**Main Application**: Streamlit-based transcript processing pipeline
+- 📋 Streamlit UI with model selection and configuration (see DEVELOPMENT_PLAN_v2.md)
+- 📋 File upload for customer transcripts (TXT, DOCX, PDF)
+- 📋 Real-time pipeline progress tracking
+- 📋 Agent-specific prompt and tool configuration
+- 📋 Document preview and download functionality
 
-### 📋 Phase 4: Database & Tools
-**Database** (`db/` folder): Schema designed
-- 📋 PostgreSQL implementation with conversation persistence
-- 📋 Agent execution tracking and audit trails
-- 📋 State serialization/deserialization for workflow continuity
+### 📋 Phase 3: LlamaIndex Agent Pipeline 
+**10-Step Agent Workflow**: Core business logic
+- 📋 **Conversa Agent**: Transcript analysis and requirement extraction
+- 📋 **Conny Agent**: Business consulting and solution architecture  
+- 📋 **ProDy Agent**: Product management and documentation generation
+- 📋 **Marketing Agent**: Customer-facing sales deck creation
+- 📋 AgentWorkflow orchestration with handoffs and state management
 
-**Tools** (`tools/` folder): Specifications complete
-- 📋 CRM integration tools (Salesforce, HubSpot)
-- 📋 Research tools with Tavily web search integration
-- 📋 Document generation and proposal tools
-- 📋 Compliance and validation utilities
+### 📋 Phase 4: RAG Knowledge Base & Tools
+**Company Knowledge System**: 
+- 📋 Vector database with company proposals, projects, solutions
+- 📋 Document ingestion pipeline (MD, PDF, PPT processing)
+- 📋 Jina reranker for enhanced retrieval quality
+- 📋 Tagging and categorization system
+
+**Specialized Tools**:
+- 📋 Transcript processing and parsing tools
+- 📋 Document generation with Markdown templates
+- 📋 Mermaid diagram generation for process visualization
+- 📋 RAG search and solution matching tools
 
 ### Key Implementation Patterns from Guides
 
@@ -279,41 +313,57 @@ TAVILY_API_KEY=your_tavily_api_key
 - **WebSocket streaming**: Real-time updates are core requirement
 - **Modular architecture**: Each component can be developed independently
 
-### Development Priorities (Updated)
-1. ✅ **Frontend streaming** provides user experience - **COMPLETED**
-2. 🔄 **Backend orchestration** enables agent coordination - **NEXT**
-3. 📋 **AI agents** are the core value - Phase 3
-4. 📋 **Database persistence** ensures reliability - Phase 4
-5. 📋 **Custom tools** provide competitive advantage - Phase 4
+### Development Priorities (Vision-Aligned)
+1. ✅ **Admin Interface** - **COMPLETED** (bonus React dashboard)
+2. 🔄 **Streamlit Pipeline App** - **NEXT** (main user interface)
+3. 📋 **10-Step Agent Workflow** - Core business logic with Conversa, Conny, ProDy
+4. 📋 **RAG Knowledge Base** - Company proposal and solution repository
+5. 📋 **Document Generation** - Markdown templates and Mermaid diagrams
 
-### LlamaIndex Integration Strategy
-Based on analysis of guides in `guides/` folder:
-- **AgentWorkflow Pattern**: Use linear swarm pattern for presales workflow
-- **FunctionAgent Implementation**: Specialized agents with specific tools and handoff capabilities  
-- **Streaming Events**: Real-time progress updates to frontend via WebSocket
-- **Tavily Integration**: Web research capabilities for ResearchAgent
-- **Tool Modularity**: Reusable tools across different agents
-- **State Persistence**: Conversation and workflow state management
+### LlamaIndex Integration Strategy (Vision-Specific)
+Based on analysis of guides in `guides/` folder + business requirements:
+- **AgentWorkflow Pattern**: Linear pipeline perfect for 10-step transcript processing
+- **Specialized Agents**: 
+  - **Conversa**: Transcript analysis with NLP tools
+  - **Conny**: Business consulting with RAG access to company knowledge
+  - **ProDy**: Document generation with template engines and diagram tools
+  - **Marketing Agent**: Sales deck creation with customer-facing templates
+- **Streaming Events**: Real-time progress updates to Streamlit interface
+- **RAG Integration**: Always-available company knowledge base for all agents
+- **State Persistence**: Workflow continuity and document version management
+- **OpenRouter Integration**: Flexible LLM selection per agent for optimal cost/performance
 
 ### Repository Status
-- **Current**: ✅ Frontend production-ready, detailed development plan created
-- **Next**: 🔄 Backend FastAPI + WebSocket implementation (see DEVELOPMENT_PLAN.md)
+- **Current**: ✅ React admin interface ready, complete vision alignment completed
+- **Next**: 🔄 Streamlit pipeline application development (see DEVELOPMENT_PLAN_v2.md)
+- **Vision**: ✅ True business requirements captured with 30% cycle-time reduction goal
 - **Git**: All changes committed with clean history
 
 ### Quick Start Commands
 ```bash
-# Frontend development (WORKING NOW)
+# React Admin Interface (BONUS - monitoring dashboard)
 cd fe/
 npm install
 npm run dev  # http://localhost:5173
 
-# Acceptance testing
-cd fe/tests/acceptance/
-# Follow README.md for manual testing procedures
+# Main Streamlit Application (TO BE DEVELOPED)
+pip install streamlit llama-index llama-index-llms-openrouter
+streamlit run streamlit_app/main.py
 
-# Next: Backend development
-cd be/
-# See DEVELOPMENT_PLAN.md Phase 2 for implementation steps
+# Development Plan
+# See DEVELOPMENT_PLAN_v2.md for complete implementation strategy
+# See PROJECT_VISION.md for detailed business requirements
+
+# Knowledge Base Setup (when ready)
+python scripts/ingest_knowledge_base.py --folder ./company_knowledge
 ```
+
+### For the Engineer
+**Priority 1**: Follow `DEVELOPMENT_PLAN_v2.md` to build the Streamlit pipeline application
+**Priority 2**: Implement the 10-step agent workflow with Conversa, Conny, ProDy, Marketing agents
+**Priority 3**: Integrate RAG system for company knowledge base
+**Priority 4**: Use React interface as admin panel for proposal management
+
+The React frontend we built can serve as a valuable **admin interface** for reviewing generated proposals and monitoring pipeline performance!
 
 This CLAUDE.md provides complete context for any future development sessions on this project.
