@@ -19,6 +19,9 @@ def render_overview_section():
     # Key capabilities
     render_capabilities_section()
     
+    # System overview diagrams
+    render_system_overview()
+    
     # Mock example walkthrough
     render_mock_example()
 
@@ -43,28 +46,9 @@ def render_system_flow_diagram():
     
     st.markdown("### 🔄 **How It Works: 10-Step AI Pipeline**")
     
-    # Create columns for the flow
-    col1, col2, col3 = st.columns([1, 2, 1])
-    
-    with col2:
-        st.markdown("""
-        ```mermaid
-        graph TD
-            A[📄 Customer Transcript] --> B[🎯 Conversa Agent]
-            B --> |Analysis| C[🏗️ Conny Agent]
-            C --> |Project Description| D[📋 ProDy Agent]
-            D --> |5 Documents| E[🎨 Marketing Agent]
-            E --> F[📦 Complete Proposal Package]
-            
-            G[📚 Company Knowledge] --> C
-            G --> D
-            G --> E
-            
-            style A fill:#e1f5fe
-            style F fill:#c8e6c9
-            style G fill:#fff3e0
-        ```
-        """)
+    # Interactive pipeline diagram
+    from streamlit_app.components.mermaid_renderer import render_interactive_pipeline_diagram
+    render_interactive_pipeline_diagram()
     
     # Step-by-step breakdown
     st.markdown("### 📊 **Pipeline Steps Breakdown**")
@@ -149,6 +133,15 @@ def render_capabilities_section():
     
     with col4:
         st.metric("💼 Proposal Quality", "95%+", "consistency score")
+
+
+def render_system_overview():
+    """Render system overview with architecture diagrams"""
+    
+    st.markdown("### 🏗️ **System Architecture & User Experience**")
+    
+    from streamlit_app.components.mermaid_renderer import render_system_overview_diagrams
+    render_system_overview_diagrams()
 
 
 def render_mock_example():
