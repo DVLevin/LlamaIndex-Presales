@@ -28,11 +28,11 @@ An intelligent **10-step agent pipeline** that processes customer discovery call
 - **Jina AI Services** for embeddings, rerankers, and search
 
 #### **Epic 3: Production Streamlit UI (COMPLETED)**
-- **Main Application Interface** with advanced features (3,540+ LOC)
-- **Professional Demo System** with realistic business scenarios
-- **Backend Prompt Management** with file system persistence
-- **Document Template System** for all 6 output types
-- **Multi-format File Upload** (TXT, DOCX, PDF) for transcripts and knowledge base
+- **LazyFlow UI Design** with sidebar navigation and single-tap generation (4,220+ LOC)
+- **Interactive Mermaid Diagrams** showing pipeline architecture and user flows
+- **Smart Configuration System** with contextual guidance and auto-setup detection
+- **Professional Demo System** with realistic business scenarios and mock data
+- **Advanced Configurations** with prompt management, RAG planning, and tools framework
 
 ### 🔄 **NEXT PRIORITY: Integration & Production**
 **Connect UI to AI Pipeline** for complete end-to-end automation
@@ -83,7 +83,7 @@ pip install -r streamlit_app/requirements.txt
 
 # 4. Launch application
 streamlit run streamlit_app/main.py
-# Access at: http://localhost:8501
+# Access at: http://localhost:8501 (or available port)
 ```
 
 **Note**: The requirements.txt includes only essential packages for UI demo. LlamaIndex packages are commented out until AI pipeline integration.
@@ -95,13 +95,13 @@ npm install
 npm run dev  # http://localhost:5173
 ```
 
-### 🎭 **Demo Mode (Try Instantly)**
-1. Visit http://localhost:8501
-2. Go to "🏠 Overview" tab
-3. Click "🚀 Try This Example" to load sample data
-4. Switch to "📊 Progress & Output" tab
-5. Click "🎭 Demo Complete Pipeline" to see results
-6. Download professional proposal documents
+### 🎭 **LazyFlow Demo (Try Instantly)**
+1. Visit http://localhost:8501 (or available port)
+2. **About Section**: View interactive Mermaid diagrams and business value
+3. Click "🚀 Try This Example" to load realistic Acme Corp scenario
+4. **Proposals Section**: See one-tap generation interface and document library
+5. Click "🎭 Demo Mode" to generate complete proposal package
+6. **Configurations**: Explore advanced prompt and RAG management features
 
 ## 📊 Epic Completion Status
 
