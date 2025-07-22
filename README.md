@@ -78,13 +78,15 @@ cd LlamaIndex-Presales/
 python3 -m venv venv
 source venv/bin/activate  # On Windows: venv\Scripts\activate
 
-# 3. Install dependencies
+# 3. Install UI dependencies (lightweight for demo)
 pip install -r streamlit_app/requirements.txt
 
 # 4. Launch application
 streamlit run streamlit_app/main.py
 # Access at: http://localhost:8501
 ```
+
+**Note**: The requirements.txt includes only essential packages for UI demo. LlamaIndex packages are commented out until AI pipeline integration.
 
 ### 🔧 **Admin Dashboard (Monitoring Interface)**
 ```bash
