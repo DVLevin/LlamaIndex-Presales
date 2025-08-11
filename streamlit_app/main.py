@@ -15,12 +15,13 @@ project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, project_root)
 
 from streamlit_app.config import load_config, save_api_keys, validate_api_keys, initialize_session_state
-from streamlit_app.components.file_upload import render_file_upload_section
+from streamlit_app.components.smart_input import render_smart_input_section
 from streamlit_app.components.model_selection import render_model_selection
 from streamlit_app.components.pipeline_progress import render_pipeline_progress
 from streamlit_app.components.document_preview import render_document_preview
 from streamlit_app.components.overview_visualization import render_overview_section
 from streamlit_app.components.prompt_management import render_prompt_management_section
+from streamlit_app.components.dynamic_pipeline import execute_smart_pipeline, render_pipeline_results
 
 
 def main():
@@ -94,8 +95,9 @@ def render_sidebar_navigation(config):
     st.sidebar.info(f"{status_colors.get(pipeline_state, '⚪ Unknown')}")
     
     # Quick stats
-    if st.session_state.get("current_transcript"):
-        st.sidebar.metric("📄 Transcript", "Uploaded")
+    if st.session_state.get("smart_input"):
+        input_type = st.session_state["smart_input"].get("content_type_hint", "Content")
+        st.sidebar.metric("💭 Input", input_type)
     if st.session_state.get("knowledge_base_docs"):
         doc_count = len(st.session_state.knowledge_base_docs)
         st.sidebar.metric("📚 Knowledge Base", f"{doc_count} docs")
@@ -124,10 +126,10 @@ def render_proposals_section(config):
     col1, col2 = st.columns([1, 1])
     
     with col1:
-        st.subheader("📁 Input Center")
-        render_file_upload_section()
+        st.subheader("💭 Smart Input Center")
+        render_smart_input_section()
         
-        st.subheader("🤖 Smart Configuration")
+        st.subheader("🤖 Model Configuration")
         render_model_selection(config)
         render_smart_pipeline_controls()
     
@@ -189,7 +191,7 @@ def render_smart_pipeline_controls():
     # Smart readiness check
     ready_to_run = (
         all(api_status.values()) and 
-        st.session_state.get("current_transcript") is not None
+        st.session_state.get("smart_input") is not None
     )
     
     if ready_to_run:
@@ -204,8 +206,8 @@ def render_smart_pipeline_controls():
         missing_items = []
         if not all(api_status.values()):
             missing_items.append("API keys (go to Configurations)")
-        if not st.session_state.get("current_transcript"):
-            missing_items.append("customer transcript")
+        if not st.session_state.get("smart_input"):
+            missing_items.append("business input content")
             
         st.warning(f"⚠️ Setup needed: {', '.join(missing_items)}")
         
@@ -315,19 +317,47 @@ def render_api_configuration_section():
 
 
 def start_pipeline_execution():
-    """Start the AI pipeline execution"""
+    """Start the smart AI pipeline execution"""
+    
+    # Check if we have smart input
+    smart_input = st.session_state.get("smart_input")
+    if not smart_input:
+        st.error("❌ No input content available. Please provide business input first.")
+        return
     
     st.session_state.pipeline_state = "processing"
     st.session_state.processing_progress = 0
-    st.session_state.current_agent = "Initializing..."
+    st.session_state.current_agent = "Starting smart pipeline..."
     
-    # TODO: Connect to actual AI pipeline
-    st.info("🚀 Pipeline execution started! (Integration with AI agents coming next)")
-    
-    # Placeholder for actual pipeline integration
-    st.session_state.pipeline_state = "completed"
-    st.session_state.processing_progress = 100
-    st.session_state.current_agent = "Completed"
+    # Execute the smart pipeline
+    try:
+        # Run the smart pipeline asynchronously
+        import asyncio
+        
+        # Create event loop if one doesn't exist
+        try:
+            loop = asyncio.get_event_loop()
+        except RuntimeError:
+            loop = asyncio.new_event_loop()
+            asyncio.set_event_loop(loop)
+        
+        # Execute the smart pipeline
+        results = loop.run_until_complete(execute_smart_pipeline(smart_input))
+        
+        # Store results in session state
+        st.session_state["pipeline_results"] = results
+        st.session_state.pipeline_state = "completed"
+        st.session_state.processing_progress = 100
+        st.session_state.current_agent = "Smart pipeline completed"
+        
+        # Show results
+        st.success("🎉 Smart pipeline execution completed!")
+        render_pipeline_results(results)
+        
+    except Exception as e:
+        st.session_state.pipeline_state = "error"
+        st.session_state.current_agent = f"Error: {str(e)}"
+        st.error(f"❌ Pipeline execution failed: {str(e)}")
     
 
 def reset_pipeline_state():
