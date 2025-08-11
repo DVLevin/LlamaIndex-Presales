@@ -15,10 +15,22 @@ class AISettings(BaseSettings):
     
     # LLM Configuration
     openrouter_api_key: str = Field(..., env="OPENROUTER_API_KEY")
-    default_llm_model: str = Field("moonshotai/kimi-k2", env="DEFAULT_LLM_MODEL")
+    default_llm_model: str = Field("openai/gpt-oss-120b", env="DEFAULT_LLM_MODEL")
     llm_temperature: float = Field(0.1, env="LLM_TEMPERATURE")
     llm_max_tokens: int = Field(4000, env="LLM_MAX_TOKENS")
     llm_timeout: int = Field(60, env="LLM_TIMEOUT")
+    
+    # Agent-Specific Model Mappings (unified model configuration)
+    agent_models: Dict[str, str] = Field(
+        default={
+            "conversa": "openai/gpt-oss-120b",         # Unified model for all agents
+            "conny": "openai/gpt-oss-120b",            # Unified model for all agents
+            "prody": "openai/gpt-oss-120b",            # Unified model for all agents
+            "preston": "openai/gpt-oss-120b",          # Unified model for all agents
+            "marketing": "openai/gpt-oss-120b"         # Unified model for all agents
+        },
+        env="AGENT_MODELS"
+    )
     
     # Jina AI Configuration
     jina_api_key: str = Field(..., env="JINA_API_KEY")
@@ -209,3 +221,9 @@ def get_agent_prompt(agent_name: str) -> Dict[str, Any]:
 def get_document_template(template_name: str) -> Dict[str, Any]:
     """Get document template configuration"""
     return DOCUMENT_TEMPLATES.get(template_name, {})
+
+
+def get_agent_model(agent_name: str) -> str:
+    """Get optimal model for specific agent based on methodology"""
+    settings = get_ai_settings()
+    return settings.agent_models.get(agent_name, settings.default_llm_model)

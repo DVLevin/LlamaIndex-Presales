@@ -13,7 +13,7 @@ from llama_index.llms.openrouter import OpenRouter
 from llama_index.core.llms import LLM
 from llama_index.core.llms import ChatMessage, MessageRole
 
-from .config import get_ai_settings
+from .config import get_ai_settings, get_agent_model
 
 logger = structlog.get_logger()
 settings = get_ai_settings()
@@ -187,7 +187,18 @@ class AgentLLMWrapper:
     
     def __init__(self, agent_name: str, client: Optional[OpenRouterClient] = None):
         self.agent_name = agent_name
-        self.client = client or OpenRouterClient()
+        
+        # Get agent-specific model based on methodology
+        agent_model = get_agent_model(agent_name)
+        
+        # Create client with agent-specific model
+        self.client = client or OpenRouterClient(model=agent_model)
+        
+        logger.info(
+            "Agent LLM wrapper initialized", 
+            agent_name=agent_name,
+            model=agent_model
+        )
         
     async def process_with_context(
         self,

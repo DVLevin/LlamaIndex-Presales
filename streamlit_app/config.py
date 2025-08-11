@@ -18,12 +18,25 @@ class AppConfig(BaseModel):
     # Model Configuration
     available_models: Dict[str, str] = Field(
         default={
-            "gpt-4o": "openai/gpt-4o",
-            "claude-3.5-sonnet": "anthropic/claude-3.5-sonnet-20241022", 
-            "llama-3.1-405b": "meta-llama/llama-3.1-405b-instruct",
-            "gpt-4o-mini": "openai/gpt-4o-mini"
+            "gpt-oss-120b": "openai/gpt-oss-120b",
+            "claude-3.7-sonnet": "anthropic/claude-3.7-sonnet",
+            "gpt-4o": "openai/gpt-4o", 
+            "deepseek-coder-v2": "deepseek/deepseek-coder-v2",
+            "gemini-2.5-flash": "google/gemini-2.5-flash-lite"
         },
         description="Available LLM models"
+    )
+    
+    # Agent-Specific Model Mappings (unified configuration)  
+    agent_models: Dict[str, str] = Field(
+        default={
+            "conversa": "openai/gpt-oss-120b",         # Unified model for all agents
+            "conny": "openai/gpt-oss-120b",            # Unified model for all agents
+            "prody": "openai/gpt-oss-120b",            # Unified model for all agents
+            "preston": "openai/gpt-oss-120b",          # Unified model for all agents
+            "marketing": "openai/gpt-oss-120b"         # Unified model for all agents
+        },
+        description="Agent-specific model mappings"
     )
     
     # Upload Configuration
