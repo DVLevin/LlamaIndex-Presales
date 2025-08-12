@@ -1,11 +1,22 @@
 """
 Streamlit Application Configuration
-Secure API key handling and app settings
+Secure API key handling and app settings with .env.local support
 """
 import os
 from typing import Dict, Any
 import streamlit as st
 from pydantic import BaseModel, Field
+from dotenv import load_dotenv
+
+# Load environment variables from .env.local if it exists
+env_local_path = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), '.env.local')
+if os.path.exists(env_local_path):
+    load_dotenv(env_local_path)
+    
+# Also load from .env as fallback
+env_path = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), '.env')
+if os.path.exists(env_path):
+    load_dotenv(env_path)
 
 
 class AppConfig(BaseModel):

@@ -22,6 +22,7 @@ from streamlit_app.components.document_preview import render_document_preview
 from streamlit_app.components.overview_visualization import render_overview_section
 from streamlit_app.components.prompt_management import render_prompt_management_section
 from streamlit_app.components.dynamic_pipeline import execute_smart_pipeline, render_pipeline_results
+from streamlit_app.storage.project_manager import get_project_manager
 
 
 def main():
@@ -51,6 +52,8 @@ def main():
         render_proposals_section(config)
     elif selected_page == "Configurations":
         render_configurations_section()
+    elif selected_page == "Projects":
+        render_projects_section()
 
 
 def render_sidebar_navigation(config):
@@ -63,11 +66,12 @@ def render_sidebar_navigation(config):
     st.sidebar.markdown("---")
     selected_page = st.sidebar.radio(
         "Navigate",
-        ["About", "Proposals", "Configurations"],
-        index=0,
+        ["About", "Proposals", "Projects", "Configurations"],
+        index=1,  # Default to Proposals page
         format_func=lambda x: {
             "About": "📋 About",
             "Proposals": "🎯 Proposals", 
+            "Projects": "📚 Projects",
             "Configurations": "⚙️ Configurations"
         }[x]
     )
@@ -141,6 +145,12 @@ def render_proposals_section(config):
         render_document_preview()
 
 
+def render_projects_section():
+    """Render projects library section"""
+    from streamlit_app.pages.projects_page import render_projects_page
+    render_projects_page()
+
+
 def render_configurations_section():
     """Render advanced Configurations section"""
     
@@ -197,7 +207,7 @@ def render_smart_pipeline_controls():
     if ready_to_run:
         st.success("🟢 Ready for one-tap generation!")
         
-        # Single-tap generation button
+        # Single-tap generation button - THIS WAS THE MISSING BUTTON!
         if st.button("🚀 Generate Proposal Package", type="primary", use_container_width=True):
             start_pipeline_execution()
             
@@ -211,22 +221,19 @@ def render_smart_pipeline_controls():
             
         st.warning(f"⚠️ Setup needed: {', '.join(missing_items)}")
         
-        if st.button("🔧 Quick Setup", use_container_width=True):
+        if st.button("🔧 Quick Setup", type="tertiary", use_container_width=True):
             if not all(api_status.values()):
-                st.info("👆 Configure API keys in the sidebar or Configurations section")
+                st.info("👆 Configure API keys in the Configurations tab")
     
     # Demo and reset options
     col1, col2 = st.columns(2)
     
     with col1:
-        if st.button("🎭 Demo Mode", use_container_width=True):
-            from streamlit_app.components.mock_data import load_mock_documents_to_session
-            load_mock_documents_to_session()
-            st.success("🎉 Demo data loaded!")
-            st.balloons()
+        if st.button("🎭 Demo Mode", type="tertiary", use_container_width=True):
+            load_demo_data()
     
     with col2:
-        if st.button("🔄 Reset", use_container_width=True):
+        if st.button("🔄 Reset", type="tertiary", use_container_width=True):
             reset_pipeline_state()
             st.success("Reset complete!")
             st.rerun()
@@ -314,8 +321,6 @@ def render_api_configuration_section():
         st.markdown("3. Generate API key for embeddings")
 
 
-
-
 def start_pipeline_execution():
     """Start the smart AI pipeline execution"""
     
@@ -350,6 +355,9 @@ def start_pipeline_execution():
         st.session_state.processing_progress = 100
         st.session_state.current_agent = "Smart pipeline completed"
         
+        # Save to project manager
+        save_pipeline_results_to_project(results, smart_input)
+        
         # Show results
         st.success("🎉 Smart pipeline execution completed!")
         render_pipeline_results(results)
@@ -358,7 +366,102 @@ def start_pipeline_execution():
         st.session_state.pipeline_state = "error"
         st.session_state.current_agent = f"Error: {str(e)}"
         st.error(f"❌ Pipeline execution failed: {str(e)}")
+
+
+def save_pipeline_results_to_project(results, smart_input):
+    """Save pipeline results as a project"""
+    try:
+        project_manager = get_project_manager()
+        
+        # Create project
+        customer_name = smart_input.get("customer_name", "Customer")
+        project_name = f"{customer_name} - AI Proposal"
+        
+        project_id = project_manager.create_project(
+            name=project_name,
+            customer_name=customer_name,
+            input_content=smart_input["content"],
+            input_metadata=smart_input
+        )
+        
+        # Save artifacts
+        generated_docs = results.get("generated_documents", {})
+        for doc_type, content in generated_docs.items():
+            project_manager.save_artifact(
+                project_id=project_id,
+                artifact_type=doc_type,
+                title=doc_type.replace("_", " ").title(),
+                content=content,
+                format="markdown",
+                agent_generated="ai_pipeline"
+            )
+        
+        # Update project status
+        project_manager.update_project_progress(
+            project_id=project_id,
+            progress_step="completed",
+            status="completed"
+        )
+        
+        st.session_state["current_project_id"] = project_id
+        st.success(f"✅ Project saved: {project_name}")
+        
+    except Exception as e:
+        st.warning(f"⚠️ Results generated but project save failed: {str(e)}")
+
+
+def load_demo_data():
+    """Load demo data for testing"""
+    demo_transcript = """Customer Discovery Call - Acme Manufacturing Corp
+
+**Participants**: 
+- Sarah Johnson (CTO, Acme Manufacturing)
+- Mike Davis (VP Operations, Acme Manufacturing)  
+- John Smith (Sales Rep, Our Company)
+
+## Current Challenges
+Sarah: "Our biggest pain point is managing our supply chain data. We have systems that don't talk to each other - our inventory management, production planning, and supplier portals are all separate. This creates a lot of manual work and delays."
+
+Mike: "The lack of real-time visibility is killing us. When we have a production issue, it takes hours to figure out the ripple effect on our delivery commitments. We need something that gives us a unified view."
+
+## Current Process  
+Sarah: "Right now, our production team manually exports data from three different systems every morning and creates Excel reports. It takes about 2 hours each day. Then they email these reports to different departments."
+
+Mike: "And by the time everyone gets the reports, the data is already outdated. We're making decisions on stale information."
+
+## Desired Outcomes
+Sarah: "We want real-time dashboards that show our entire supply chain status. Production capacity, inventory levels, supplier delivery status, all in one place."
+
+Mike: "The goal is to reduce our production planning cycle from 24 hours to 2 hours, and eliminate the manual reporting completely."
+
+## Budget & Timeline
+Sarah: "We have budget approved for up to $500K for this project. We need to have something operational by Q2 2025 because that's when our new product line launches."
+
+Mike: "The board is very focused on operational efficiency this year, so this project has executive support."
+
+## Technical Requirements
+Sarah: "We're using SAP for ERP, Oracle for inventory, and a custom supplier portal built in .NET. Everything needs to integrate with these existing systems."
+
+Mike: "We also need mobile access for our floor managers. They need to see production status and make adjustments from the factory floor."
+
+## Next Steps
+John: "I'll prepare a detailed proposal showing how our AI-powered supply chain optimization platform can address these challenges. We'll include integration architecture, implementation timeline, and ROI projections."
+
+Sarah: "Perfect. We'd like to see this by next Friday if possible. Also include some customer case studies from similar manufacturing companies."
+"""
     
+    st.session_state["smart_input"] = {
+        "content": demo_transcript,
+        "format": "Customer Transcript",
+        "customer_name": "Acme Manufacturing Corp",
+        "content_type_hint": "Customer Transcript",
+        "input_method": "demo",
+        "timestamp": datetime.now().isoformat()
+    }
+    
+    st.success("🎭 Demo data loaded! Ready to generate proposal.")
+    st.balloons()
+
 
 def reset_pipeline_state():
     """Reset pipeline state to initial values"""
@@ -366,6 +469,10 @@ def reset_pipeline_state():
     st.session_state.processing_progress = 0
     st.session_state.current_agent = ""
     st.session_state.generated_documents = {}
+    if "smart_input" in st.session_state:
+        del st.session_state["smart_input"]
+    if "pipeline_results" in st.session_state:
+        del st.session_state["pipeline_results"]
 
 
 if __name__ == "__main__":
