@@ -1,6 +1,6 @@
-# 🚀 LlamaIndex Pre-sales AI Pipeline
+# LlamaIndex Pre-sales AI Pipeline
 
-**AI-powered proposal generation platform that transforms customer conversations into comprehensive business proposals, reducing proposal cycle-time by 30%.**
+**Reference implementation of a multi-agent presales pipeline: customer conversation transcripts in, structured analysis and a draft proposal package out.** Built with LlamaIndex and Streamlit by [Dima Levin](https://dimalevin.com), Chief AI Officer at [Cone Red](https://cone.red). The figures quoted below come from internal demo runs, not from a client engagement.
 
 ---
 
@@ -12,9 +12,9 @@ The **LlamaIndex Pre-sales AI Pipeline** is a comprehensive business proposal au
 - **Provides multi-page workflow** with intuitive progress tracking through the entire process
 - **Automatically saves all work** with SQLite-based project management and version control
 - **Delivers professional output** ready for customer presentation and business use
-- **Proves clear ROI** with 87.5% time reduction (10 hours manual → 10 minutes AI-assisted)
+- **Measured in internal demo runs**: roughly 10 hours of manual proposal work to about 10 minutes assisted
 
-**Status**: ✅ **PRODUCTION READY** - Fully functional with comprehensive validation testing
+**Status**: demo / reference implementation. Runs locally with your own API keys (see `.env.example`).
 
 ---
 
