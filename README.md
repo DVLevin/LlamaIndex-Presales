@@ -1,22 +1,14 @@
 # LlamaIndex Pre-sales AI Pipeline
 
-**Reference implementation of a multi-agent presales pipeline: customer conversation transcripts in, structured analysis and a draft proposal package out.** Built with LlamaIndex and Streamlit by [Dima Levin](https://dimalevin.com), Chief AI Officer at [Cone Red](https://cone.red). The figures quoted below come from internal demo runs, not from a client engagement.
+A local reference implementation by Dima Levin at Cone Red. Give it a sales conversation transcript and it produces a draft proposal package. A salesperson can compare the draft with the transcript, correct the scope and figures, and export the reviewed version. [Dima Levin](https://dimalevin.com) · [Cone Red](https://cone.red)
 
----
+## What you can try
 
-## 🎯 **What Is This System?**
+1. Open the sample project in Streamlit or supply your own transcript.
+2. Inspect the proposed requirements and the draft documents.
+3. Edit the proposal and export the package. Project state is stored in SQLite.
 
-The **LlamaIndex Pre-sales AI Pipeline** is a comprehensive business proposal automation platform that:
-
-- **Transforms customer transcripts** into professional, personalized proposal packages
-- **Provides multi-page workflow** with intuitive progress tracking through the entire process
-- **Automatically saves all work** with SQLite-based project management and version control
-- **Delivers professional output** ready for customer presentation and business use
-- **Measured in internal demo runs**: roughly 10 hours of manual proposal work to about 10 minutes assisted
-
-**Status**: demo / reference implementation. Runs locally with your own API keys (see `.env.example`).
-
----
+The published examples come from internal demo runs. For provider-backed processing, configure your own API keys using `.env.example`.
 
 ## 🎉 **Current System Capabilities**
 
@@ -32,7 +24,7 @@ The **LlamaIndex Pre-sales AI Pipeline** is a comprehensive business proposal au
 - **Solution Approach** tailored to customer requirements
 - **Process Visualization** with Mermaid diagrams
 - **Investment Proposal** with ROI calculations
-- **Customer Sales Deck** ready for presentation
+- **Sales deck draft** for the salesperson to review
 
 ### **✅ Project Management System**
 - **Automatic Saving**: All work persisted in SQLite database
@@ -41,15 +33,13 @@ The **LlamaIndex Pre-sales AI Pipeline** is a comprehensive business proposal au
 - **Version Control**: Track changes and document evolution
 - **Resume Capability**: Continue work from any workflow stage
 
-### **✅ Business Value Proven**
-- **⚡ 87.5% Time Reduction**: 10-hour manual process → 10-minute AI workflow  
-- **💰 $315,000 Annual Savings**: For 5-person sales team organization
-- **📈 Professional Quality**: Consistent, customer-ready output
-- **🚀 Competitive Advantage**: 5-7x faster response than traditional methods
+### What a reviewer should check
+
+Compare the draft with the transcript. Check names, requirements, scope, budget assumptions and any customer-facing commitments. The salesperson decides what can be shared.
 
 ---
 
-## 🚀 **Quick Start - Get Running in 2 Minutes**
+## Quick start
 
 ### **1. Installation & Setup**
 ```bash
@@ -73,10 +63,10 @@ streamlit run streamlit_app/main.py
 1. **Click "🎭 Demo Mode"** in the sidebar
 2. **Watch the workflow**: Complete sample data loads
 3. **Generate Proposal**: Click "🚀 Generate Proposal Package" 
-4. **Review Results**: Professional documents created in under 1 minute
+4. **Review results**: Open the draft documents and compare them with the sample input
 5. **Check Projects**: See saved project in Projects page
 
-**Expected Result**: Complete professional proposal package demonstrating the system's capabilities.
+The sample run produces a draft proposal package you can inspect in the review page.
 
 ---
 
@@ -123,7 +113,7 @@ tests/
 │   ├── core_workflow.feature # End-to-end business process
 │   ├── navigation_and_progress.feature # Multi-page flow
 │   ├── project_management.feature # Data persistence
-│   └── business_value.feature # ROI and competitive advantage
+│   └── business_value.feature # illustrative business scenarios
 └── validation/                # System validation tests
     ├── core_validation.py    # Programmatic system tests
     └── quick_system_test.py   # Rapid functionality verification
@@ -131,7 +121,7 @@ tests/
 
 ---
 
-## 🎯 **How It Works - Complete Process Flow**
+## How the workflow handles an illustrative transcript
 
 ### **Step 1: Input Collection** 💭
 ```
@@ -163,7 +153,7 @@ Customer: "Manual processes and lack of real-time visibility..."
 - **Problem Overview**: Customer-specific analysis and requirements
 - **Solution Approach**: Tailored recommendations with implementation roadmap  
 - **Investment Proposal**: ROI calculations and budget recommendations
-- **Sales Deck**: Customer-ready presentation materials
+- **Sales Deck**: Draft presentation for the salesperson to check
 
 ---
 
@@ -173,7 +163,7 @@ Customer: "Manual processes and lack of real-time visibility..."
 - **Single-tap generation**: All processing with one button click
 - **Smart defaults**: System configured for immediate use
 - **Clear progress tracking**: Always know where you are in the process
-- **Professional output**: Business-ready documents every time
+- **Professional output**: Editable drafts for review
 
 ### **Key Features**
 - **🎭 Demo Mode**: Instant demonstration with realistic sample data
@@ -186,29 +176,22 @@ Customer: "Manual processes and lack of real-time visibility..."
 
 ## 🧪 **Validation & Testing**
 
-### **✅ Comprehensive Validation Complete**
-The system has undergone extensive testing to prove business value and technical reliability:
+### Functional checks
 
-### **Programmatic Tests: 4/4 PASSED**
-- **Project Manager Core**: Storage, retrieval, artifacts, export ✅
-- **Smart Input Analysis**: Content detection, business intelligence ✅  
-- **Document Generation**: Template engine, personalization ✅
-- **Workflow State**: Multi-page progression, session handling ✅
+The validation scripts cover project storage and retrieval, input detection, document generation, and workflow state.
 
 ### **Business Acceptance Tests (Gherkin BDD)**
 - **`core_workflow.feature`**: End-to-end customer transcript to proposal
 - **`navigation_and_progress.feature`**: Multi-page flow with progress tracking
 - **`project_management.feature`**: Data persistence and project operations
 - **`document_editing.feature`**: Content management with version control
-- **`business_value.feature`**: ROI validation and competitive advantages
+- **`business_value.feature`**: Illustrative business-value expectations for discussion
 
-**Test Execution**: See `tests/acceptance/README.md` for complete manual testing guide
+See the [acceptance test guide](tests/acceptance/README.md) for the manual workflow checks.
 
-### **Business Value Validation**
-- **Time Savings**: 87.5% reduction (10 hours → 10 minutes)
-- **Cost Savings**: $315,000 annually for 5-person sales team
-- **Quality Improvement**: Consistent professional output
-- **Competitive Advantage**: 5-7x faster than traditional methods
+### Measuring a real engagement
+
+To estimate time saved, use the same transcripts, scope and quality criteria for both the manual and assisted workflow. Measure each proposal through final review, including corrections and rework. Any savings estimate would also need observed usage and operating costs. The demo has no published client benchmark.
 
 ---
 
@@ -250,14 +233,14 @@ The system has undergone extensive testing to prove business value and technical
 
 ## 🎯 **Next Steps & Roadmap**
 
-### **Phase 1: Current Production System** ✅ COMPLETE
+### **Phase 1: Local demonstration**
 - Multi-page Streamlit application with professional UI
 - Complete project management with SQLite persistence
-- Comprehensive testing suite with business value validation
+- Workflow validation scripts and acceptance scenarios
 - Demo mode for immediate system demonstration
 
 ### **Phase 2: AI Integration** 🔄 NEXT PRIORITY  
-- Connect to real LlamaIndex agents (currently mock implementation)
+- Expand integration of provider-backed agents in the demo workflow
 - Integrate OpenRouter API for live LLM processing
 - Implement RAG knowledge base for organizational learning
 - Real-time streaming updates during agent execution
@@ -270,33 +253,8 @@ The system has undergone extensive testing to prove business value and technical
 
 ---
 
-## 💡 **Why This System Matters**
+## Try the workflow
 
-### **Business Transformation**
-- **From Manual to AI**: 10-hour proposal process → 10-minute AI workflow
-- **From Generic to Personal**: Standard templates → Customer-specific proposals  
-- **From Individual to Organizational**: Personal knowledge → Institutional intelligence
-- **From Reactive to Proactive**: Slow responses → Competitive advantage
-
-### **Competitive Advantages**
-- **Speed**: 5-7x faster proposal generation than competitors
-- **Quality**: Consistent professional output regardless of rep experience
-- **Intelligence**: Learns from every engagement to improve future results
-- **Scalability**: Ready for organizational deployment and team adoption
-
----
-
-## 🚀 **Get Started Now**
-
-**The LlamaIndex Pre-sales AI Pipeline is ready to transform your proposal generation process.**
-
-1. **🔧 Setup**: Follow Quick Start guide (2 minutes)
-2. **🎭 Demo**: Try Demo Mode to see capabilities
-3. **📊 Validate**: Run your own content through the system
-4. **🚀 Deploy**: Begin using for real customer engagements
+Run the application locally, open the sample project, and review the draft against the transcript. Try changing a requirement in the input and see which parts of the proposal need to be checked again.
 
 **Application URL**: http://localhost:8501 (after running `streamlit run streamlit_app/main.py`)
-
----
-
-**🎯 Experience the 30% cycle-time reduction and competitive advantages that make this system a game-changer for presales teams!**
