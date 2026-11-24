@@ -587,6 +587,8 @@ def render_template_preview(template_type: str, template_content: str):
     
     st.markdown("### 👁️ Template Preview")
     
+    st.caption("Fictional Acme example. All figures in this template preview are illustrative.")
+
     # Sample data for preview
     sample_data = {
         "customer_name": "Acme Corp",

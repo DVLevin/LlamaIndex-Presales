@@ -60,7 +60,7 @@ def render_sidebar_navigation(config):
     """Render LazyFlow sidebar navigation"""
     
     st.sidebar.title("🤖 AI Proposal Pipeline")
-    st.sidebar.markdown("*30% cycle-time reduction*")
+    st.sidebar.markdown("*Transcript to draft proposal · local demo*")
     
     # Main navigation
     st.sidebar.markdown("---")

@@ -1,7 +1,7 @@
 Feature: Complete Proposal Generation Workflow
   As a sales representative
   I want to transform customer transcripts into complete proposal packages
-  So that I can reduce proposal cycle-time by 30% and deliver professional materials
+  So that I can review a proposal draft against the original brief
 
   Background:
     Given the LlamaIndex Pre-sales Pipeline application is running
@@ -111,34 +111,19 @@ Feature: Complete Proposal Generation Workflow
     And I should see today's date as the creation date
 
   @business-value
-  Scenario: Demonstrate 30% Cycle-Time Reduction
-    Given I have timed the traditional manual proposal process at 8 hours
-    And I am using the AI-powered pipeline for the first time
-    
-    When I complete the entire workflow from transcript input to final package
-    
-    Then the total time should be under 15 minutes (including manual review)
-    And I should achieve more than 30% time reduction compared to manual process
-    And the quality of generated documents should be professional and comprehensive
+  Scenario: Record the time required for a reviewed draft
+    Given a brief, a manual baseline and agreed review criteria
+    When I complete and review an assisted proposal for the same brief
+    Then I record the time spent creating, checking and correcting both drafts
+    And I record whether each draft meets the same review criteria
 
   @customer-ready
-  Scenario: Generated Proposal Package is Customer-Ready
-    Given I have completed the proposal generation workflow
-    And I have downloaded the final package
-    
-    When I extract and review the ZIP package contents
-    
-    Then I should find the following customer-ready documents:
-      | Document | Customer-Ready | Professional Quality |
-      | Problem Overview | ✓ | ✓ |
-      | Solution Architecture | ✓ | ✓ |
-      | Investment Proposal | ✓ | ✓ |
-      | Executive Sales Deck | ✓ | ✓ |
-      | Implementation Roadmap | ✓ | ✓ |
-    And each document should be formatted in markdown
-    And each document should contain specific customer information (Acme Manufacturing Corp)
-    And each document should reference the customer's specific challenges and requirements
-    And the investment proposal should include the customer's budget range ($500K)
+  Scenario: Review the proposal package before sharing
+    Given I have downloaded the sample proposal package
+    When I extract its Markdown files and compare them to the sample transcript
+    Then I check the customer name, requirements and budget against the source
+    And I flag any unsupported financial claims
+    And I record the corrections and the reviewer decision
 
   @error-handling
   Scenario: Handle Missing Prerequisites Gracefully

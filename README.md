@@ -12,12 +12,9 @@ The published examples come from internal demo runs. For provider-backed process
 
 ## 🎉 **Current System Capabilities**
 
-### **✅ Complete Multi-Page Workflow**
-- **💭 Input Page**: Smart content collection with transcript analysis
-- **🤖 Analysis Page**: AI-powered business intelligence extraction  
-- **⚡ Processing Page**: Real-time multi-agent pipeline with progress visualization
-- **📋 Review Page**: Document editing interface with version control
-- **📚 Projects Page**: Complete project library with search and export
+### App navigation
+
+Open **Proposals** to load a transcript, generate a package and inspect drafts. Use **Projects** for saved work and exports. **Configurations** holds model and API settings, and **About** describes the reference workflow.
 
 ### **✅ Professional Document Generation**  
 - **Problem Overview** with customer-specific analysis
@@ -27,7 +24,7 @@ The published examples come from internal demo runs. For provider-backed process
 - **Sales deck draft** for the salesperson to review
 
 ### **✅ Project Management System**
-- **Automatic Saving**: All work persisted in SQLite database
+- **Automatic Saving**: Project storage in SQLite
 - **Search & Filter**: Full-text search across projects and content
 - **Export System**: Complete ZIP packages with all documents
 - **Version Control**: Track changes and document evolution
@@ -60,13 +57,11 @@ streamlit run streamlit_app/main.py
 **🌐 Open**: http://localhost:8501
 
 ### **3. Quick Demo Test**
-1. **Click "🎭 Demo Mode"** in the sidebar
-2. **Watch the workflow**: Complete sample data loads
-3. **Generate Proposal**: Click "🚀 Generate Proposal Package" 
-4. **Review results**: Open the draft documents and compare them with the sample input
-5. **Check Projects**: See saved project in Projects page
+1. Open **Proposals → Generation Controls → Demo Mode** to load the fictional Acme transcript.
+2. Select **Generate Proposal Package** once its configuration requirements are met.
+3. Compare the drafts with the sample input. In **Projects**, reopen the saved package and inspect the exported files.
 
-The sample run produces a draft proposal package you can inspect in the review page.
+The [demo walkthrough](SIMPLE_TEST_GUIDE.md) explains provider configuration and the mock route.
 
 ---
 
@@ -168,7 +163,7 @@ Customer: "Manual processes and lack of real-time visibility..."
 ### **Key Features**
 - **🎭 Demo Mode**: Instant demonstration with realistic sample data
 - **📊 Progress Tracking**: Visual indication of workflow completion
-- **💾 Auto-Save**: All work automatically persisted in database
+- **💾 Auto-Save**: Local project storage in SQLite
 - **📦 Export System**: Complete ZIP packages for easy sharing
 - **🔍 Project Search**: Find and reuse past proposals and templates
 
@@ -178,14 +173,14 @@ Customer: "Manual processes and lack of real-time visibility..."
 
 ### Functional checks
 
-The validation scripts cover project storage and retrieval, input detection, document generation, and workflow state.
+The [validation note](PLATFORM_VALIDATION_COMPLETE.md) describes the four standalone checks. They use a temporary database and simulated analysis, draft generation and workflow state.
 
 ### **Business Acceptance Tests (Gherkin BDD)**
 - **`core_workflow.feature`**: End-to-end customer transcript to proposal
 - **`navigation_and_progress.feature`**: Multi-page flow with progress tracking
 - **`project_management.feature`**: Data persistence and project operations
 - **`document_editing.feature`**: Content management with version control
-- **`business_value.feature`**: Illustrative business-value expectations for discussion
+- **`business_value.feature`**: Paired measurement procedure and fictional arithmetic examples
 
 See the [acceptance test guide](tests/acceptance/README.md) for the manual workflow checks.
 
@@ -213,8 +208,8 @@ To estimate time saved, use the same transcripts, scope and quality criteria for
 ## 📚 **Documentation & Support**
 
 ### **Current Documentation** ✅
-- **`PLATFORM_VALIDATION_COMPLETE.md`**: Complete system validation and capabilities
-- **`SIMPLE_TEST_GUIDE.md`**: Quick 5-minute system validation
+- **`PLATFORM_VALIDATION_COMPLETE.md`**: Scope and limits of four synthetic checks
+- **`SIMPLE_TEST_GUIDE.md`**: Local sample workflow and export checks
 - **`CLAUDE.md`**: Complete project context for AI development sessions
 - **`tests/acceptance/README.md`**: Comprehensive testing guide
 

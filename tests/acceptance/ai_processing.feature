@@ -176,7 +176,7 @@ Feature: AI Agent Processing and Intelligence
       | Include specific details from input | ✓ |
       | Use professional business language | ✓ |
       | Have appropriate length and depth | ✓ |
-      | Be ready for customer presentation | ✓ |
+      | Identify which claims a reviewer should verify | ✓ |
 
   @performance-metrics
   Scenario: Processing Performance and Time Validation
@@ -186,11 +186,7 @@ Feature: AI Agent Processing and Intelligence
     
     Then the demo mode should complete in under 10 seconds
     And each agent should process in approximately 1-2 seconds
-    And the total workflow should demonstrate the 30% time reduction value proposition
-    
-    # When real AI integration is implemented:
-    # And the full AI pipeline should complete in under 15 minutes
-    # And it should be significantly faster than manual proposal creation (8+ hours)
+    And I record the simulated processing duration separately from human review time
 
   @error-scenarios
   Scenario: Handle Processing Errors and Edge Cases

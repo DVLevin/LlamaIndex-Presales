@@ -151,10 +151,11 @@ def display_agent_model_methodology():
         
         st.markdown("---")
     
-    st.markdown("### 💰 Cost-Benefit Analysis")
-    st.markdown("**Total Monthly Cost**: ~$5.22/month for 25 proposals")
-    st.markdown("**ROI**: 7,666% annual ROI with 30% cycle-time reduction")
-    st.markdown("**Savings**: $4,800/month in consultant time")
+    st.markdown("### Estimate the cost per reviewed proposal")
+    st.caption(
+        "Record token usage and provider charges for each run, including retries. "
+        "Track the time a reviewer spends checking and correcting the draft."
+    )
 
 
 def display_model_info(model_key: str):

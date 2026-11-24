@@ -1,15 +1,14 @@
 # 🚀 LlamaIndex Smart Business Input Router - System Overview
 
-**Revolutionary AI system that transforms ANY business input into contextual, high-quality proposals while continuously learning from organizational knowledge.**
+The router is an internal proposal-drafting prototype. The diagrams below describe the intended architecture, including retrieval from past proposals and feedback from completed engagements.
 
-## 🎯 Executive Summary
+## 🎯 Design goals
 
-The **LlamaIndex Smart Business Input Router** represents a paradigm shift from traditional proposal automation to intelligent business advisory. Rather than simply processing customer transcripts, this system:
+- Route transcripts, strategy notes and requirements to the relevant drafting steps.
+- Retrieve similar proposals and make their source material available to the reviewer.
+- Use recorded outcomes to assess whether a suggested approach transfers to another proposal.
 
-- **Accepts ANY business input** and intelligently routes it through optimized workflows
-- **Leverages organizational knowledge** to provide contextual recommendations  
-- **Learns continuously** from each engagement to improve future proposals
-- **Delivers 70%+ cycle-time reduction** through automation and intelligence
+The demo uses fictional inputs and can run a simulated pipeline. Its [four synthetic checks](../PLATFORM_VALIDATION_COMPLETE.md) do not measure effort saved, proposal quality or business outcomes.
 
 ## 🎯 System Architecture Overview
 
@@ -67,10 +66,10 @@ graph TB
 ## 🎯 Core System Components
 
 ### **1. 💭 Smart Input System** 
-**Revolutionary multi-format input processing that handles ANY business content**
+The input interface supports the text and file formats below.
 
 #### **Capabilities:**
-- **Universal content acceptance**: Transcripts, strategic notes, competitive intel, requirements, thoughts
+- **Example inputs**: Transcripts, strategic notes, competitive intel, requirements, thoughts
 - **Intelligent format detection**: Auto-detects content type and structure
 - **Business template library**: Pre-built templates for common business scenarios
 - **Real-time analysis preview**: Shows how system interprets content
@@ -122,7 +121,7 @@ def render_smart_input_section():
 ```
 
 ### **3. 📚 RAG Knowledge System**
-**Organizational memory that leverages past successful engagements**
+The retrieval design uses stored proposals, metadata and outcomes when available.
 
 #### **Knowledge Base Components:**
 - **Proposal repository**: Historical proposals with metadata and outcomes
@@ -133,13 +132,13 @@ def render_smart_input_section():
 
 #### **Similarity Matching:**
 - **Contextual search**: Industry + solution type + stakeholder analysis
-- **Relevance scoring**: 85%+ relevance matching for proposal suggestions
+- **Relevance scoring**: Rank suggestions by similarity. Reviewer judgments would be needed to assess relevance.
 - **Success bias**: Prioritizes won deals and successful outcomes
-- **Continuous learning**: Each new proposal improves future recommendations
+- **Outcome feedback**: Index additional proposals and evaluate subsequent suggestions
 
 #### **Context Integration:**
 ```python
-# Example RAG context integration
+# Fictional retrieval example. The relevance score and deal outcome are sample values.
 proposal_context = {
     "similar_proposals": [
         {
@@ -165,7 +164,7 @@ proposal_context = {
 - **Conditional execution**: Skip unnecessary agents based on content analysis
 - **Priority ordering**: Execute agents in optimal sequence
 - **Context enhancement**: Provide relevant business intelligence to each agent
-- **Resource optimization**: Minimize processing time while maximizing quality
+- **Design aim**: Skip unnecessary steps and assess the effects on duration and output quality
 
 #### **Agent Routing Logic:**
 ```python
@@ -239,38 +238,11 @@ Proposal Outcome → Success Factor Analysis → Pattern Database Update →
 Enhanced Future Recommendations
 ```
 
-## 🎯 Business Value Architecture
+## 🎯 Evaluating the design
 
-### **Immediate Value Delivery:**
-- **70%+ cycle-time reduction**: Automation + intelligence optimization
-- **95%+ context relevance**: Through organizational knowledge integration
-- **100% input flexibility**: Handle any business content type
-- **Real-time processing**: Sub-3-minute proposal generation
+The original design aimed to shorten proposal drafting and help staff reuse past work. Testing those aims requires comparable proposal briefs and a shared endpoint, such as a reviewer accepting a draft. Record time spent on research, generation, review and corrections for each workflow. Compare errors and omissions against the brief and record any operating costs.
 
-### **Strategic Value Creation:**
-- **Institutional knowledge preservation**: Capture expertise before people leave
-- **Competitive advantage building**: Leverage past wins for future success
-- **Consistency at scale**: Apply best practices across all proposals
-- **Continuous improvement**: System gets smarter with each engagement
-
-### **ROI Calculation Framework:**
-```
-Traditional Proposal Process:
-- Research & Analysis: 4-6 hours
-- Document Creation: 6-8 hours  
-- Review & Refinement: 2-3 hours
-- Total: 12-17 hours per proposal
-
-Smart Router Process:
-- Input & Analysis: 5 minutes
-- Agent Processing: 2-3 minutes
-- Review & Customization: 2-4 hours
-- Total: 2.5-4.5 hours per proposal
-
-Time Savings: 70-85% reduction
-Cost Savings: $800-1,200 per proposal (consultant time)
-Quality Improvement: 40-60% through organizational knowledge leverage
-```
+The prototype supplies no measured baseline, labor saving or quality improvement. The fictional retrieval example above illustrates the data format only.
 
 ## 🎯 Technical Stack
 
@@ -284,9 +256,9 @@ Quality Improvement: 40-60% through organizational knowledge leverage
 - **Knowledge Base**: File-based with JSON indexing
 
 ### **Model Configuration:**
-- **Unified LLM**: openai/gpt-oss-120b for all agents ($0.00007/$0.0003 per M tokens)
-- **Cost optimization**: Single model reduces complexity while maintaining quality
-- **Performance**: Sub-3-minute processing for typical business input
+- **Unified LLM**: openai/gpt-oss-120b is the model named in this design
+- **Configuration**: The design uses one model across agents
+- **Performance**: Processing time is an evaluation target
 
 ## 🎯 Deployment Architecture
 
@@ -304,17 +276,19 @@ cd be/ && python src/main.py      # Backend API (when needed)
 - **Security**: API key management, user authentication, data encryption
 - **Monitoring**: Usage analytics, performance metrics, success tracking
 
-## 🎯 Success Metrics & KPIs
+## 🎯 Proposed metrics
 
-### **Operational Metrics:**
+The thresholds below are historical design targets. This document records no benchmark runs or outcomes against them.
+
+### **Operational targets**
 - **Processing time**: Target <3 minutes per proposal
-- **Quality score**: >95% relevance through user feedback
-- **Agent efficiency**: Optimal agent routing >90% accuracy
-- **Knowledge leverage**: >85% similarity matching for RAG
+- **Quality score**: Target >95% relevance through user feedback
+- **Agent routing**: Target >90% agreement with reviewed routing decisions
+- **Retrieval**: Proposed similarity threshold above 85%. Assess relevance separately with reviewers.
 
 ### **Business Impact Metrics:**
 - **Cycle-time reduction**: Target 70%+ improvement
-- **Proposal win rate**: Track improvement through organizational learning
+- **Proposal win rate**: Record outcomes and comparison conditions
 - **User adoption**: Usage frequency and engagement metrics
 - **Knowledge growth**: Proposal database growth and pattern development
 
@@ -323,5 +297,3 @@ cd be/ && python src/main.py      # Backend API (when needed)
 - **Cost reduction**: Consultant time savings quantification
 - **Quality improvement**: Proposal effectiveness metrics
 - **Knowledge value**: Reuse and pattern application tracking
-
-This system represents a revolutionary approach to proposal generation that transforms organizations from reactive proposal writing to proactive business advisory through intelligent automation and organizational learning.

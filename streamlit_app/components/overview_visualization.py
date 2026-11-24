@@ -33,9 +33,9 @@ def render_hero_section():
     <div style="background: linear-gradient(90deg, #667eea 0%, #764ba2 100%); 
                 padding: 2rem; border-radius: 10px; color: white; text-align: center; margin-bottom: 2rem;">
         <h1>🚀 AI-Powered Proposal Pipeline</h1>
-        <h3>Transform customer conversations into winning proposals in minutes, not days</h3>
+        <h3>Turn a sales transcript into a draft proposal</h3>
         <p style="font-size: 1.2em; margin-top: 1rem;">
-            <strong>Goal: 30% reduction in proposal cycle-time</strong>
+            <strong>Inspect extracted requirements, edit the draft and export it for review.</strong>
         </p>
     </div>
     """, unsafe_allow_html=True)
@@ -105,34 +105,23 @@ def render_capabilities_section():
         - Problem overview with business impact
         - Process visualization with Mermaid diagrams
         - Investment proposal with ROI analysis
-        - Customer-ready sales presentations
+        - Draft sales presentations
         """)
     
     with col3:
         st.markdown("""
-        **🚀 Speed & Quality**
-        - 5-minute end-to-end processing
+        **Review and configuration**
+        - Review and revise generated drafts
         - Multiple LLM model options
         - Company knowledge base integration
         - Professional templates and formatting
         """)
     
-    # ROI metrics
-    st.markdown("### 📈 **Expected ROI Impact**")
-    
-    col1, col2, col3, col4 = st.columns(4)
-    
-    with col1:
-        st.metric("⏰ Time Reduction", "30%", "vs manual process")
-    
-    with col2:
-        st.metric("📄 Documents Generated", "6", "professional outputs")
-    
-    with col3:
-        st.metric("🎯 Processing Time", "5 min", "typical transcript")
-    
-    with col4:
-        st.metric("💼 Proposal Quality", "95%+", "consistency score")
+    st.markdown("### Evaluating a proposal workflow")
+    st.caption(
+        "Compare a manual and an assisted proposal against the same brief. "
+        "For both, record elapsed time, reviewer corrections and whether the result meets the brief."
+    )
 
 
 def render_system_overview():
@@ -163,6 +152,8 @@ def render_sample_scenario():
     
     st.markdown("#### 🏢 **Sample Customer Scenario: Acme Corp Digital Transformation**")
     
+    st.caption("Acme is fictional. The transcript, figures and sample outputs illustrate the workflow.")
+
     # Sample transcript preview
     with st.expander("📄 **Sample Customer Transcript** (Click to expand)", expanded=False):
         sample_transcript = get_sample_transcript()
@@ -236,7 +227,7 @@ def render_step_walkthrough():
             "title": "Start Pipeline",
             "description": "Launch the 10-step AI agent pipeline",
             "action": "🚀 Click 'Start Pipeline' and watch real-time progress",
-            "tip": "💡 Takes 3-7 minutes depending on transcript length and complexity"
+            "tip": "Duration depends on input length, model and provider response times."
         },
         {
             "step": 5,
@@ -400,6 +391,8 @@ def get_sample_problem_overview() -> str:
     
     return """# Problem Overview: Acme Corp Inventory Management Transformation
 
+*Fictional demonstration. All figures are illustrative.*
+
 ## Executive Summary
 Acme Corp is experiencing significant operational inefficiencies and revenue losses due to their legacy manual inventory management system, requiring urgent digital transformation to maintain competitiveness.
 
@@ -474,7 +467,7 @@ def load_sample_data_to_session():
     sample_kb_docs = [
         {
             "filename": "inventory_management_case_study.md",
-            "content": "# Inventory Management Success Story\n\nClient achieved 85% reduction in manual work and $2M annual savings through automated inventory system...",
+            "content": "# Fictional inventory case\n\nIllustrative assumptions for this sample: an 85% reduction in manual work and $2M in projected annual savings.",
             "upload_time": "2024-01-15T10:31:00",
             "file_type": "text/markdown",
             "char_count": 1250

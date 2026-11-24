@@ -91,6 +91,8 @@ def get_mock_problem_overview() -> str:
     
     return """# Problem Overview: Acme Corp Inventory Management Transformation
 
+*Fictional Acme demonstration. Figures, projections and quotations are illustrative.*
+
 ## Executive Summary
 Acme Corp is experiencing critical operational inefficiencies and significant revenue losses due to their legacy manual inventory management system, requiring urgent digital transformation to maintain competitive advantage and customer satisfaction.
 
@@ -146,6 +148,8 @@ def get_mock_process_overview() -> str:
     """Generate mock process overview document"""
     
     return """# Process Overview: Acme Corp Inventory Management Solution
+
+*Fictional Acme demonstration. Figures, projections and quotations are illustrative.*
 
 ## Solution Approach
 Implement a comprehensive automated inventory management system that integrates with existing Salesforce CRM to provide real-time visibility, eliminate manual processes, and ensure accurate stock levels across all sales channels.
@@ -210,6 +214,8 @@ def get_mock_process_visualization() -> str:
     """Generate mock process visualization document"""
     
     return """# Process Visualization: Acme Corp Transformation
+
+*Fictional Acme demonstration. Figures, projections and quotations are illustrative.*
 
 ## Current State: Manual Inventory Process
 
@@ -333,6 +339,8 @@ def get_mock_investment_proposal() -> str:
     
     return """# Investment Proposal: Acme Corp Digital Transformation
 
+*Fictional Acme demonstration. Figures, projections and quotations are illustrative.*
+
 ## Executive Summary
 This proposal outlines a $150,000 investment in automated inventory management that will deliver $1.2M in annual savings, eliminate $600K in current revenue losses, and provide complete ROI within 12 months.
 
@@ -436,6 +444,8 @@ def get_mock_next_steps() -> str:
     """Generate mock next steps document"""
     
     return """# Next Steps: Acme Corp Implementation Roadmap
+
+*Fictional Acme demonstration. Figures, projections and quotations are illustrative.*
 
 ## Immediate Actions (Next 2 Weeks)
 
@@ -563,6 +573,8 @@ def get_mock_sales_presentation() -> str:
     """Generate mock sales presentation document"""
     
     return """# Executive Presentation: Acme Corp Digital Transformation ROI
+
+*Fictional Acme demonstration. Figures, projections and quotations are illustrative.*
 
 ## The Challenge: $600K Annual Revenue Loss
 

@@ -1,7 +1,7 @@
 # LlamaIndex Pre-sales Multi-Agent Pipeline - True Vision
 
 ## 🎯 Business Objective
-**Reduce proposal cycle-time by 30%** through intelligent automation of pre-sales document generation.
+The original design target was a 30% reduction in proposal cycle time. Measuring it requires comparable manual and assisted runs through final review.
 
 ## 📋 Core Workflow - The 10-Step Pipeline
 
@@ -145,7 +145,7 @@ Use 50%+ of the pipeline logic to:
 ## 📊 Success Metrics
 
 ### Primary KPI
-- **30% reduction in proposal cycle-time**
+- **Design target:** 30% reduction in proposal cycle time, including human review
 
 ### Secondary Metrics
 - Proposal acceptance rate improvement

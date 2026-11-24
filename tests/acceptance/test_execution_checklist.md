@@ -230,9 +230,9 @@ Execute tests in this priority sequence:
 - **Professional Appearance**: Yes/No - [Comments]
 
 #### Business Value Validation
-- **30% Time Reduction**: Achieved/Not Achieved - [Measurement]
+- **Paired timings**: [manual minutes] / [assisted minutes, including review]; record unavailable values as unmeasured
 - **Professional Output**: Yes/No - [Assessment]
-- **Customer-Ready Documents**: Yes/No - [Assessment]
+- **Reviewer decision**: [accept / revise / reject], with source discrepancies
 
 #### Recommendations
 1. [Priority] - [Recommendation]

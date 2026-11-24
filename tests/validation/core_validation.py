@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
-Core System Validation Test (No Streamlit Dependencies)
-Tests core functionality without Streamlit imports
+Standalone smoke checks for sample data and simulated workflows.
+Run the application separately to verify the interactive workflow.
 """
 import sys
 import os
@@ -349,26 +349,11 @@ def run_validation_suite():
     print(f"❌ FAILED: {failed}/{len(tests)} tests")
     
     if failed == 0:
-        print("\n🎉 ALL CORE TESTS PASSED!")
-        print("\n🔗 System is ready for manual user acceptance testing:")
-        print("   1. Application should be running at: http://localhost:8501")
-        print("   2. All core functionality has been validated programmatically")
-        print("   3. Project storage, analysis, and document generation work correctly")
-        print("   4. Workflow state management is functional")
-        
-        print("\n📋 Manual Test Instructions:")
-        print("   ✅ Open browser to http://localhost:8501")
-        print("   ✅ Click '🎭 Demo Mode' to load sample data")
-        print("   ✅ Complete workflow: Input → Analysis → Processing → Review → Projects")
-        print("   ✅ Verify professional documents are generated")
-        print("   ✅ Test project persistence and export functionality")
-        
-        print("\n🎯 Expected Outcome:")
-        print("   • Complete AI-powered proposal generation in under 10 minutes")
-        print("   • Professional, customer-ready documents")
-        print("   • Persistent project storage with search and export")
-        print("   • Intuitive multi-page workflow with progress tracking")
-        
+        print("\nAll four standalone sample checks passed.")
+        print("These checks exercised a temporary SQLite database and simulated workflow objects.")
+        print("For a manual trial, start the local app and open http://localhost:8501.")
+        print("Load an example, inspect the draft against its input, and verify saved and exported content.")
+
         return True
     else:
         print(f"\n⚠️  {failed} core tests failed. System needs attention before manual testing.")
@@ -380,8 +365,8 @@ if __name__ == "__main__":
     
     if success:
         print("\n" + "🎉" * 20)
-        print("SYSTEM VALIDATION: COMPLETE ✅")
-        print("Ready for User Acceptance Testing! 🚀")
+        print("STANDALONE SAMPLE CHECKS: PASSED")
+        print("For browser verification, follow SIMPLE_TEST_GUIDE.md.")
         print("🎉" * 20)
     
     sys.exit(0 if success else 1)

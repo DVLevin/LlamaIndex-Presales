@@ -5,7 +5,7 @@ This directory contains **Behavior-Driven Development (BDD)** acceptance tests w
 
 ## Test Philosophy
 - **User-Centric**: Tests written from the perspective of actual users (sales reps, account managers)
-- **Business Value**: Each scenario validates specific business outcomes and value propositions
+- **Business Value**: Use paired runs and agreed review criteria to measure a business outcome
 - **Manual Verification**: Tests can be executed manually by following the Given/When/Then steps
 - **End-to-End**: Complete workflows from initial input to final deliverable
 
@@ -45,13 +45,13 @@ This directory contains **Behavior-Driven Development (BDD)** acceptance tests w
 A test **PASSES** when:
 - All Then statements are verified as true
 - User experience feels intuitive and professional
-- Business value is clearly demonstrated
+- Where a measurement is requested, the result and assumptions are recorded
 - No critical errors or broken functionality
 
 A test **FAILS** when:
 - Any Then statement cannot be verified
 - User encounters confusion or poor UX
-- Expected business outcomes are not achieved
+- A required observation or run record is missing
 - Critical functionality is broken or inaccessible
 
 ## Reporting Issues

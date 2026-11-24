@@ -210,17 +210,10 @@ def render_interactive_pipeline_diagram():
         key="main_pipeline"
     )
     
-    # Benefits summary
-    col1, col2, col3 = st.columns(3)
-    
-    with col1:
-        st.metric("⏱️ Processing Time", "3-7 min", "vs 2-4 hours manual")
-    
-    with col2:
-        st.metric("📄 Documents Generated", "6", "professional outputs")
-    
-    with col3:
-        st.metric("🎯 Accuracy Rate", "95%+", "consistent quality")
+    st.caption(
+        "Trace a sample transcript through document generation, review and export. "
+        "A timed comparison requires a manual baseline and the same review criteria."
+    )
 
 
 def render_system_overview_diagrams():
